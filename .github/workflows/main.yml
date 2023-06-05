@@ -17,7 +17,14 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ github.event.name }}"
-      - run: echo "${{ github.event.ref }}"
-      - run: ls
+      - run: | 
+          echo "Workflow triggered by this type of event: ${{ github.event_name }}"
+          echo "The triggered branch is: ${{ github.event.ref }}"
+      
+      - uses: actions/checkout@v3
+      
+      - name: List all files in the directory
+        run: |
+          echo "# List of files in the directory" >> $GITHUB_STEP_SUMMARY
+          tree
     
